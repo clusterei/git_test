@@ -13,13 +13,16 @@ def hash(value, total):
 def softwrite_pixel(c, value, index):
     cord = (int(index % dims[0]), (index // dims[0]) % dims[1])
     color = screen.get_at(cord)
-    if c == 0 and color[c] >= value: color[2] = 255
+    coll = c == 0 and color[0] >= value
+    if coll: color[2] = 255
     color[c] = max(color[c], value)
     screen.set_at(cord, color)
 
+    if coll: softwrite_pixel(c, value, index+1)
+
 
 pygame.init()
-dims = (1000, 500)
+dims = (1000, 200)
 screen = pygame.display.set_mode(dims)
 print("hi")
 running = True
